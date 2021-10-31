@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ListComponent } from './list/list.component';
 import { AddComponent } from './add/add.component';
-import { DetailComponent } from './detail/detail.component';
+import { DrawTreeComponent } from './draw-tree/draw-tree.component';
+import { FolderComponent } from './folder.component';
+import { ListFolderModule } from './list/list.module';
 
 @NgModule({
-  declarations: [ListComponent, AddComponent, DetailComponent],
-  imports: [CommonModule],
-  exports: [ListComponent, AddComponent],
+  declarations: [AddComponent, DrawTreeComponent, FolderComponent],
+  imports: [CommonModule, ListFolderModule],
+  exports: [FolderComponent],
 })
 export class FolderModule {}

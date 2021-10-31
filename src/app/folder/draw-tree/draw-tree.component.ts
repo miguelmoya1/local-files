@@ -1,15 +1,15 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FolderService, Tree } from '../folder.service';
 
 @Component({
-  selector: 'app-list-folders',
+  selector: 'app-draw-tree-folder',
   template: `
-    <ng-container *ngFor="let folder of tree">
-      <ng-container *ngIf="folder.type"></ng-container>
-    </ng-container>
+    <pre>
+  <!-- {{ tree | json }} -->
+</pre>
   `,
 })
-export class ListComponent implements OnInit, OnDestroy {
+export class DrawTreeComponent implements OnInit, OnDestroy {
   tree?: Tree;
   subscriptions: any[] = [];
 
