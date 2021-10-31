@@ -5,7 +5,7 @@ import { FolderService, Tree } from '../folder.service';
   selector: 'app-list-folders',
   template: `
     <app-card>
-      <div class="text-2xl">Listado</div>
+      <div class="text-2xl">Lista</div>
       <ng-container *ngFor="let item of tree">
         <div class="ml-4">
           <app-detail [open]="true" [tree]="item"></app-detail>

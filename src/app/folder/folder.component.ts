@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-folder',
   template: `
     <app-add-folder></app-add-folder>
-    <app-draw-tree-folder></app-draw-tree-folder>
+    <app-tree-folders></app-tree-folders>
     <app-list-folders></app-list-folders>
   `,
 })
