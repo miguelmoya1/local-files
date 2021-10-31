@@ -4,14 +4,20 @@ import { FolderService, Tree } from '../folder.service';
 @Component({
   selector: 'app-list-folders',
   template: `
-    <ng-container *ngFor="let folder of tree">
-      <ng-container *ngIf="folder.type"></ng-container>
-    </ng-container>
+    <app-card>
+      <div class="text-2xl">Listado</div>
+      <ng-container *ngFor="let item of tree">
+        <div class="ml-4">
+          <app-detail [open]="true" [tree]="item"></app-detail>
+        </div>
+      </ng-container>
+    </app-card>
   `,
 })
 export class ListComponent implements OnInit, OnDestroy {
   tree?: Tree;
   subscriptions: any[] = [];
+  open = false;
 
   ngOnDestroy() {
     this.subscriptions.forEach((sub) => sub.unsubscribe());
