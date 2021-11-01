@@ -4,11 +4,15 @@ import { FolderService, Tree } from '../folder.service';
 @Component({
   selector: 'app-tree-folders',
   template: `
-    <app-card>
+    <app-card *ngIf="tree">
       <div class="text-2xl">Árbol</div>
       <ng-container *ngFor="let item of tree">
         <div class="ml-4">
-          <app-detail [open]="true" [tree]="item"></app-detail>
+          <app-detail
+            [showWithFolder]="true"
+            [open]="true"
+            [tree]="item"
+          ></app-detail>
         </div>
       </ng-container>
     </app-card>

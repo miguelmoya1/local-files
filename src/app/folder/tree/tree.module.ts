@@ -1,10 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DetailComponent } from './detail/detail.component';
 import { ComponentsModule } from '../../components/components.module';
 import { TreeComponent } from './tree.component';
 
-const components = [TreeComponent, DetailComponent];
+const components = [TreeComponent];
 
 @NgModule({
   declarations: components,

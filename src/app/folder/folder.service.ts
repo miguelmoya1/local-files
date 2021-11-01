@@ -23,6 +23,10 @@ export class FolderService {
   #folder?: FileSystemDirectoryHandle;
   folderUpdate$ = new EventEmitter<void>();
 
+  getFolder() {
+    return this.#folder;
+  }
+
   public checkAPISupport() {
     return window.File && window.FileReader && window.FileList && window.Blob;
   }
@@ -44,6 +48,39 @@ export class FolderService {
 
     const tree = await this.getInternalTree(dirHandle);
     return tree;
+  }
+
+  public async getList() {
+    if (!this.#folder) {
+      return;
+    }
+
+    const dirHandle = this.#folder.values();
+
+    const list = await this.getInternalList(dirHandle);
+    return list;
+  }
+
+  private async getInternalList(dir: AsyncIterableIterator<FileSystemHandle>) {
+    const list: File[] = [];
+
+    for await (const entry of dir) {
+      if (entry.kind === 'file') {
+        const file = await entry.getFile();
+
+        list.push({
+          type: entry.kind,
+          name: entry.name,
+          realSize: file.size,
+          formatSize: this.formatSizeFile(file.size),
+          kind: 'file',
+        });
+      } else {
+        const file = [...(await this.getInternalList(entry.values()))];
+        list.push(...file);
+      }
+    }
+    return list;
   }
 
   private async getInternalTree(dir: AsyncIterableIterator<FileSystemHandle>) {
