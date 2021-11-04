@@ -5,7 +5,7 @@ import { FolderService, Tree } from '../folder.service';
   selector: 'app-list-folders',
   template: `
     <app-card *ngIf="list?.length">
-      <div class="text-2xl">Lista</div>
+      <div class="text-2xl mb-4">Lista</div>
       <ng-container *ngFor="let item of list">
         <div class="ml-4">
           <app-detail [open]="true" [tree]="item"></app-detail>
