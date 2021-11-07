@@ -8,6 +8,7 @@ export type Directory = {
 
 export type File = {
   type: 'file';
+  path?: string;
   name: string;
   formatSize: string;
   realSize: number;
@@ -57,11 +58,15 @@ export class FolderService {
 
     const dirHandle = this.#folder.values();
 
-    const list = await this.getInternalList(dirHandle);
-    return list;
+    const list = await this.getInternalList(dirHandle, `${this.#folder.name}/`);
+
+    return list.sort((f, s) => s.realSize - f.realSize);
   }
 
-  private async getInternalList(dir: AsyncIterableIterator<FileSystemHandle>) {
+  private async getInternalList(
+    dir: AsyncIterableIterator<FileSystemHandle>,
+    path: string
+  ) {
     const list: File[] = [];
 
     for await (const entry of dir) {
@@ -74,9 +79,15 @@ export class FolderService {
           realSize: file.size,
           formatSize: this.formatSizeFile(file.size),
           kind: 'file',
+          path,
         });
       } else {
-        const file = [...(await this.getInternalList(entry.values()))];
+        const file = [
+          ...(await this.getInternalList(
+            entry.values(),
+            `${path}${entry.name}/`
+          )),
+        ];
         list.push(...file);
       }
     }
